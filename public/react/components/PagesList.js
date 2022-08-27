@@ -1,11 +1,20 @@
 import React from 'react';
-import { Page } from './Page';
 
-export const PagesList = ({pages}) => {
+export const PagesList = ({pages, changeBackground, setCurrentViewPoint, setPageView}) => {
+	const clickHandler = (page) => {
+		setPageView(page)
+		setCurrentViewPoint('Page')
+	}
+
 	return <>
+		<h2><b>An interesting Book</b></h2>
+		<br/>
+		<h3 className='pages' onMouseOver={e => changeBackground(e, 'grey')} onMouseLeave={e => changeBackground(e, '')} onClick={() => setCurrentViewPoint('AddPage')} >Add a page</h3>
 		{
 			pages.map((page, idx) => {
-				return <Page page={page} key={idx} />
+				return <> 
+					<h3 className='pages' key={idx} onMouseOver={e => changeBackground(e, 'grey')} onMouseLeave={e => changeBackground(e, '')} onClick={() => clickHandler(page)}>{page.title}</h3> 
+				</>
 			})
 		}
 	</>
