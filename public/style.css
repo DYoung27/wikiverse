@@ -6,7 +6,7 @@
 
 body {
   background-image: linear-gradient(to top, white 40%,rgb(188, 188, 188));
-  overflow: auto;
+  overflow: hidden;
 }
 
 p {
@@ -80,6 +80,7 @@ button {
 
 #searchBar {
   height: 30px;
+  width: 230px;
   margin: 5px;
   font-size: 20px;
   border: solid;
@@ -92,13 +93,13 @@ button {
 #content {
   width: 600px;
   margin: 10px 0px;
-  padding: 5px 0px
+  padding: 5px 0px;
 
 }
 
 #contentBox {
   overflow:scroll;
-  width: 300px;
+  width: 500px;
   height: 150px;
   border: solid;
   padding: 5px;
@@ -110,7 +111,7 @@ button {
 #contentPara { 
   background-color: white;
   overflow:scroll;
-  width: 300px;
+  width: 500px;
   height: 150px;
   border: solid;
   padding: 5px

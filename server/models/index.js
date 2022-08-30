@@ -43,6 +43,20 @@ Page.findByTag = function(search) {
   })
 }
 
+Page.findByAuthor = function(search) {
+  return Page.findAll({
+    include: {
+      model: User,
+      as: 'author',
+      where: {
+        name: {
+          [Sequelize.Op.substring]: search
+        }
+      }
+    }
+  })
+}
+
 Page.prototype.findSimilar = function(tags) {
   return Page.findAll({
     where: {

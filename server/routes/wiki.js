@@ -58,6 +58,16 @@ router.get("/search", async (req, res, next) => {
   }
 });
 
+// GET /wiki/search
+router.get("/search2", async (req, res, next) => {
+  try {
+    const pages = await Page.findByAuthor(req.query.search);
+    res.send(pages);
+  } catch (error) {
+    next(error);
+  }
+});
+
 // PUT /wiki/:slug
 router.put("/:slug", async (req, res, next) => {
   try {

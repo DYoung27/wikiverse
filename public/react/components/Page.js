@@ -63,14 +63,16 @@ export const Page = ({setCurrentViewPoint, setPageView, page}) => {
   }
 
   const cancelChange = () => {
-    if(confirm('Confirm Cancel')) {setEdit(!edit)}
+    const text = document.getElementById('contentBox')
+    if (page.content == text.value) {setEdit(!edit)}
+    else if(confirm('Confirm Cancel')) {setEdit(!edit)}
   }
 
   const confirmChange = async () => {
     console.log(page)
-    if (confirm('Confirm Content Update')) {
-      const text = document.getElementById('contentBox')
-      if (page.content == text.value) {setEdit(!edit)}
+    const text = document.getElementById('contentBox')
+    if (page.content == text.value) {setEdit(!edit)}
+    else if (confirm('Confirm Content Update')) {
       page.content = text.value
 
       try {

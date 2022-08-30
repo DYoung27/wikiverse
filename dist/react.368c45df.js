@@ -30382,7 +30382,7 @@ var PagesList = function PagesList(_ref) {
 
   var findHandler = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-      var error, res, pagesData;
+      var error, res, pagesData, res2, pagesData2;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -30391,7 +30391,7 @@ var PagesList = function PagesList(_ref) {
               error = document.getElementById('error');
 
               if (!e.target.value) {
-                _context.next = 20;
+                _context.next = 28;
                 break;
               }
 
@@ -30409,32 +30409,50 @@ var PagesList = function PagesList(_ref) {
               setPagesCollection(pagesData);
               console.log(pagesData);
 
-              if (!pagesData.length) {
+              if (pagesData.length) {
+                _context.next = 21;
+                break;
+              }
+
+              _context.next = 15;
+              return fetch("".concat(_api.default, "/wiki/search2?search=").concat(e.target.value));
+
+            case 15:
+              res2 = _context.sent;
+              _context.next = 18;
+              return res2.json();
+
+            case 18:
+              pagesData2 = _context.sent;
+              setPagesCollection(pagesData2);
+
+              if (!pagesData2.length) {
                 errorText('No Pages Found', '3px solid');
               }
 
-              _context.next = 18;
+            case 21:
+              _context.next = 26;
               break;
 
-            case 15:
-              _context.prev = 15;
+            case 23:
+              _context.prev = 23;
               _context.t0 = _context["catch"](3);
               console.log(_context.t0);
 
-            case 18:
-              _context.next = 22;
+            case 26:
+              _context.next = 30;
               break;
 
-            case 20:
+            case 28:
               fetchPages();
               errorText('', '');
 
-            case 22:
+            case 30:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[3, 15]]);
+      }, _callee, null, [[3, 23]]);
     }));
 
     return function findHandler(_x) {
@@ -30482,7 +30500,7 @@ var PagesList = function PagesList(_ref) {
     id: "searchBar",
     name: "searchBar",
     onChange: findHandler,
-    placeholder: "Search by tag"
+    placeholder: "Search by Author or Tag"
   }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
     id: "searchButton",
     className: "button",
@@ -30685,7 +30703,11 @@ var Page = function Page(_ref) {
   };
 
   var cancelChange = function cancelChange() {
-    if (confirm('Confirm Cancel')) {
+    var text = document.getElementById('contentBox');
+
+    if (page.content == text.value) {
+      setEdit(!edit);
+    } else if (confirm('Confirm Cancel')) {
       setEdit(!edit);
     }
   };
@@ -30698,21 +30720,26 @@ var Page = function Page(_ref) {
           switch (_context3.prev = _context3.next) {
             case 0:
               console.log(page);
+              text = document.getElementById('contentBox');
 
-              if (!confirm('Confirm Content Update')) {
-                _context3.next = 18;
+              if (!(page.content == text.value)) {
+                _context3.next = 6;
                 break;
               }
 
-              text = document.getElementById('contentBox');
+              setEdit(!edit);
+              _context3.next = 21;
+              break;
 
-              if (page.content == text.value) {
-                setEdit(!edit);
+            case 6:
+              if (!confirm('Confirm Content Update')) {
+                _context3.next = 21;
+                break;
               }
 
               page.content = text.value;
-              _context3.prev = 5;
-              _context3.next = 8;
+              _context3.prev = 8;
+              _context3.next = 11;
               return fetch("".concat(_api.default, "/wiki/").concat(page.slug), {
                 method: 'PUT',
                 headers: {
@@ -30722,30 +30749,30 @@ var Page = function Page(_ref) {
                 body: JSON.stringify(page)
               });
 
-            case 8:
+            case 11:
               res = _context3.sent;
-              _context3.next = 11;
+              _context3.next = 14;
               return res.json();
 
-            case 11:
+            case 14:
               data = _context3.sent;
-              _context3.next = 17;
+              _context3.next = 20;
               break;
 
-            case 14:
-              _context3.prev = 14;
-              _context3.t0 = _context3["catch"](5);
+            case 17:
+              _context3.prev = 17;
+              _context3.t0 = _context3["catch"](8);
               console.log(_context3.t0);
 
-            case 17:
+            case 20:
               setEdit(!edit);
 
-            case 18:
+            case 21:
             case "end":
               return _context3.stop();
           }
         }
-      }, _callee3, null, [[5, 14]]);
+      }, _callee3, null, [[8, 17]]);
     }));
 
     return function confirmChange() {

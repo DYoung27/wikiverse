@@ -19,12 +19,17 @@ export const PagesList = ({pages, setCurrentViewPoint, setPageView, setPagesColl
 		const error = document.getElementById('error')
 		if (e.target.value) {
             try {
-				const res = await fetch(`${apiURL}/wiki/search?search=${e.target.value}`)  
+				const res = await fetch(`${apiURL}/wiki/search?search=${e.target.value}`)
                 const pagesData = await res.json()
 				setPagesCollection(pagesData)
 				console.log(pagesData)
 				if (!pagesData.length) {
-					errorText('No Pages Found','3px solid')
+					const res2 = await fetch(`${apiURL}/wiki/search2?search=${e.target.value}`)
+					const pagesData2 = await res2.json()
+					setPagesCollection(pagesData2)
+					if (!pagesData2.length) {
+						errorText('No Pages Found','3px solid')
+					}
 				}
             }
             catch (err) {console.log(err)}
@@ -62,7 +67,7 @@ export const PagesList = ({pages, setCurrentViewPoint, setPageView, setPagesColl
 		}
 		<h3 id='error'></h3> 
 		<div id='searchTag'>
-            <input id='searchBar' name='searchBar' onChange={findHandler} placeholder='Search by tag'></input>
+            <input id='searchBar' name='searchBar' onChange={findHandler} placeholder='Search by Author or Tag'></input>
             <br/>
             <button id= 'searchButton' className='button' onClick={() => clearText()}>Clear Text</button>
         </div>
