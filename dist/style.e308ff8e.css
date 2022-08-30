@@ -1,17 +1,127 @@
 * {
   margin: 0;
   box-sizing: border-box;
-  background-color: rgb(223, 223, 223);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
+body {
+  background-image: linear-gradient(to top, white 40%,rgb(188, 188, 188));
+  overflow: auto;
+}
+
+p {
+  font-size: 18px;
+}
 main {
   padding: 1rem;
   height: 100vh;
 }
 
+.pageHeads {
+  font-size: 30px;
+}
+
+#error {
+  font-size: 22px;
+}
+
 .pages {
   font-size: 22px;
-  border-top: 4px solid
+  border-top: 3px solid
+}
+
+.input {
+  height: 30px;
+  font-size: 20px;
+}
+
+button {
+  color: white;
+  background-color: rgb(22, 108, 247);
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 1px 1px black;
+  border: black solid;
+  border-radius: 80px;
+  cursor: pointer
+}
+
+.BnU {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.button {
+  font-size: 18px;
+  height: 30px;
+  margin-right: 5px;
+}
+
+.pages, #error{
+  text-shadow: 2px 2px #a3a3a3;
+}
+
+.pages:hover, button:hover {
+  background: grey;
+  transform: scale(1.05);
+}
+
+.pages:hover {
+  margin-left: 4%
+}
+
+#searchTag {
+  display: flex;
+  position: absolute;
+  justify-items: center;
+  align-items: center;
+  top: 1%;
+  right: 1%;
+}
+
+#searchBar {
+  height: 30px;
+  margin: 5px;
+  font-size: 20px;
+  border: solid;
+}
+
+#searchButton {
+  font-size: 20px;
+}
+
+#content {
+  width: 600px;
+  margin: 10px 0px;
+  padding: 5px 0px
+
+}
+
+#contentBox {
+  overflow:scroll;
+  width: 300px;
+  height: 150px;
+  border: solid;
+  padding: 5px;
+  resize: none;
+  font-size: 18px;
+  margin-bottom: 14.5px;
+}
+
+#contentPara { 
+  background-color: white;
+  overflow:scroll;
+  width: 300px;
+  height: 150px;
+  border: solid;
+  padding: 5px
+}
+
+#cancelBtn #confirmBtn #updateBtn {
+  margin-top: 10px;
+  font-size: 16px;
+}
+#confirmBtn {
+  margin-right: 3px;
 }
 
 /*# sourceMappingURL=/style.e308ff8e.css.map */

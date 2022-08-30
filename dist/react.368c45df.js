@@ -30323,59 +30323,7 @@ try {
   }
 }
 
-},{}],"react/components/PagesList.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.PagesList = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var PagesList = function PagesList(_ref) {
-  var pages = _ref.pages,
-      changeBackground = _ref.changeBackground,
-      setCurrentViewPoint = _ref.setCurrentViewPoint,
-      setPageView = _ref.setPageView;
-
-  var clickHandler = function clickHandler(page) {
-    setPageView(page);
-    setCurrentViewPoint('Page');
-  };
-
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h2", null, /*#__PURE__*/_react.default.createElement("b", null, "An interesting Book")), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h3", {
-    className: "pages",
-    onMouseOver: function onMouseOver(e) {
-      return changeBackground(e, 'grey');
-    },
-    onMouseLeave: function onMouseLeave(e) {
-      return changeBackground(e, '');
-    },
-    onClick: function onClick() {
-      return setCurrentViewPoint('AddPage');
-    }
-  }, "Add a page"), pages.map(function (page, idx) {
-    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", {
-      className: "pages",
-      key: idx,
-      onMouseOver: function onMouseOver(e) {
-        return changeBackground(e, 'grey');
-      },
-      onMouseLeave: function onMouseLeave(e) {
-        return changeBackground(e, '');
-      },
-      onClick: function onClick() {
-        return clickHandler(page);
-      }
-    }, page.title));
-  }));
-};
-
-exports.PagesList = PagesList;
-},{"react":"../node_modules/react/index.js"}],"react/api.js":[function(require,module,exports) {
+},{}],"react/api.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30392,7 +30340,160 @@ if ("development" === 'development') {
 
 var _default = apiURL;
 exports.default = _default;
-},{}],"react/components/Page.js":[function(require,module,exports) {
+},{}],"react/components/PagesList.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.PagesList = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _api = _interopRequireDefault(require("../api"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var PagesList = function PagesList(_ref) {
+  var pages = _ref.pages,
+      setCurrentViewPoint = _ref.setCurrentViewPoint,
+      setPageView = _ref.setPageView,
+      setPagesCollection = _ref.setPagesCollection,
+      fetchPages = _ref.fetchPages;
+
+  var clickHandler = function clickHandler(page) {
+    setPageView(page);
+    setCurrentViewPoint('Page');
+  };
+
+  var errorText = function errorText(text, bt) {
+    var error = document.getElementById('error');
+    error.innerText = text;
+    error.style.borderTop = bt;
+  };
+
+  var findHandler = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+      var error, res, pagesData;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              e.preventDefault();
+              error = document.getElementById('error');
+
+              if (!e.target.value) {
+                _context.next = 20;
+                break;
+              }
+
+              _context.prev = 3;
+              _context.next = 6;
+              return fetch("".concat(_api.default, "/wiki/search?search=").concat(e.target.value));
+
+            case 6:
+              res = _context.sent;
+              _context.next = 9;
+              return res.json();
+
+            case 9:
+              pagesData = _context.sent;
+              setPagesCollection(pagesData);
+              console.log(pagesData);
+
+              if (!pagesData.length) {
+                errorText('No Pages Found', '3px solid');
+              }
+
+              _context.next = 18;
+              break;
+
+            case 15:
+              _context.prev = 15;
+              _context.t0 = _context["catch"](3);
+              console.log(_context.t0);
+
+            case 18:
+              _context.next = 22;
+              break;
+
+            case 20:
+              fetchPages();
+              errorText('', '');
+
+            case 22:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[3, 15]]);
+    }));
+
+    return function findHandler(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var clearText = function clearText() {
+    var searchBar = document.getElementById('searchBar');
+
+    if (searchBar.value) {
+      searchBar.value = '';
+      fetchPages();
+      errorText('', '');
+    }
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", {
+    className: "pageHeads"
+  }, /*#__PURE__*/_react.default.createElement("b", null, "Functions")), /*#__PURE__*/_react.default.createElement("h3", {
+    className: "pages",
+    onClick: function onClick() {
+      return setCurrentViewPoint('AddPage');
+    }
+  }, "Add a page"), /*#__PURE__*/_react.default.createElement("h3", {
+    className: "pages",
+    onClick: function onClick() {
+      return setCurrentViewPoint('SearchPage');
+    }
+  }, "Search a page"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", {
+    className: "pageHeads"
+  }, /*#__PURE__*/_react.default.createElement("b", null, "Pages")), pages.map(function (page, idx) {
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", {
+      className: "pages",
+      key: idx,
+      onClick: function onClick() {
+        return clickHandler(page);
+      }
+    }, page.title));
+  }), /*#__PURE__*/_react.default.createElement("h3", {
+    id: "error"
+  }), /*#__PURE__*/_react.default.createElement("div", {
+    id: "searchTag"
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    id: "searchBar",
+    name: "searchBar",
+    onChange: findHandler,
+    placeholder: "Search by tag"
+  }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
+    id: "searchButton",
+    className: "button",
+    onClick: function onClick() {
+      return clearText();
+    }
+  }, "Clear Text")));
+};
+
+exports.PagesList = PagesList;
+},{"react":"../node_modules/react/index.js","../api":"react/api.js"}],"react/components/Page.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30431,8 +30532,7 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Page = function Page(_ref) {
-  var changeBackground = _ref.changeBackground,
-      setCurrentViewPoint = _ref.setCurrentViewPoint,
+  var setCurrentViewPoint = _ref.setCurrentViewPoint,
       setPageView = _ref.setPageView,
       page = _ref.page;
 
@@ -30451,74 +30551,231 @@ var Page = function Page(_ref) {
       date = _useState6[0],
       setDate = _useState6[1];
 
+  var _useState7 = (0, _react.useState)(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      edit = _useState8[0],
+      setEdit = _useState8[1];
+
   var clickHandler = function clickHandler() {
-    //setIsPageView(false)
     setPageView({});
     setCurrentViewPoint('PageList');
+    location.reload();
   };
 
-  var fetchContent = /*#__PURE__*/function () {
+  var deleteHandler = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-      var res, pagesData, time, formattedDate;
+      var res, pagesData;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.prev = 0;
-              _context.next = 3;
+              if (!confirm("Confirm Page Deletion")) {
+                _context.next = 14;
+                break;
+              }
+
+              _context.prev = 1;
+              _context.next = 4;
+              return fetch("".concat(_api.default, "/wiki/").concat(page.slug), {
+                method: 'Delete'
+              });
+
+            case 4:
+              res = _context.sent;
+              _context.next = 7;
+              return res.json();
+
+            case 7:
+              pagesData = _context.sent;
+              clickHandler();
+              _context.next = 14;
+              break;
+
+            case 11:
+              _context.prev = 11;
+              _context.t0 = _context["catch"](1);
+              console.log("Oh no an error! ", _context.t0);
+
+            case 14:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee, null, [[1, 11]]);
+    }));
+
+    return function deleteHandler() {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var fetchContent = /*#__PURE__*/function () {
+    var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+      var res, pagesData, time, formattedDate;
+      return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.prev = 0;
+              _context2.next = 3;
               return fetch("".concat(_api.default, "/wiki/").concat(page.slug));
 
             case 3:
-              res = _context.sent;
-              _context.next = 6;
+              res = _context2.sent;
+              _context2.next = 6;
               return res.json();
 
             case 6:
-              pagesData = _context.sent;
+              pagesData = _context2.sent;
               time = new Date(page.createdAt);
               formattedDate = "".concat(time.getDate(), "/").concat(time.getMonth(), "/").concat(time.getFullYear());
               setDate(formattedDate);
               setAuthor(pagesData.author);
               setTags([pagesData.tags]);
-              _context.next = 17;
+              _context2.next = 17;
               break;
 
             case 14:
-              _context.prev = 14;
-              _context.t0 = _context["catch"](0);
-              console.log("Oh no an error! ", _context.t0);
+              _context2.prev = 14;
+              _context2.t0 = _context2["catch"](0);
+              console.log("Oh no an error! ", _context2.t0);
 
             case 17:
             case "end":
-              return _context.stop();
+              return _context2.stop();
           }
         }
-      }, _callee, null, [[0, 14]]);
+      }, _callee2, null, [[0, 14]]);
     }));
 
     return function fetchContent() {
-      return _ref2.apply(this, arguments);
+      return _ref3.apply(this, arguments);
     };
   }();
 
   (0, _react.useEffect)(function () {
     fetchContent();
   }, []);
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", null, /*#__PURE__*/_react.default.createElement("u", null, page.title)), /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("b", null, "Author:"), " ", author.name, " "), /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("b", null, "Published:"), " ", date, " "), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("p", null, " ", /*#__PURE__*/_react.default.createElement("u", null, /*#__PURE__*/_react.default.createElement("b", null, "Content"))), /*#__PURE__*/_react.default.createElement("p", null, page.content), /*#__PURE__*/_react.default.createElement("br", null), tags.map(function (i) {
+
+  var showContent = function showContent() {
+    if (!edit) {
+      return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("p", {
+        id: "contentPara"
+      }, page.content), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
+        id: "updateBtn",
+        onClick: function onClick() {
+          return setEdit(!edit);
+        }
+      }, "update content"));
+    }
+
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("textarea", {
+      id: "contentBox"
+    }, page.content), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
+      id: "confirmBtn",
+      onClick: function onClick() {
+        confirmChange();
+      }
+    }, "Confirm"), /*#__PURE__*/_react.default.createElement("button", {
+      id: "cancelBtn",
+      onClick: function onClick() {
+        cancelChange();
+      }
+    }, "Cancel"));
+  };
+
+  var cancelChange = function cancelChange() {
+    if (confirm('Confirm Cancel')) {
+      setEdit(!edit);
+    }
+  };
+
+  var confirmChange = /*#__PURE__*/function () {
+    var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+      var text, res, data;
+      return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              console.log(page);
+
+              if (!confirm('Confirm Content Update')) {
+                _context3.next = 18;
+                break;
+              }
+
+              text = document.getElementById('contentBox');
+
+              if (page.content == text.value) {
+                setEdit(!edit);
+              }
+
+              page.content = text.value;
+              _context3.prev = 5;
+              _context3.next = 8;
+              return fetch("".concat(_api.default, "/wiki/").concat(page.slug), {
+                method: 'PUT',
+                headers: {
+                  "Content-Type": "application/json",
+                  "accept": "application/json"
+                },
+                body: JSON.stringify(page)
+              });
+
+            case 8:
+              res = _context3.sent;
+              _context3.next = 11;
+              return res.json();
+
+            case 11:
+              data = _context3.sent;
+              _context3.next = 17;
+              break;
+
+            case 14:
+              _context3.prev = 14;
+              _context3.t0 = _context3["catch"](5);
+              console.log(_context3.t0);
+
+            case 17:
+              setEdit(!edit);
+
+            case 18:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3, null, [[5, 14]]);
+    }));
+
+    return function confirmChange() {
+      return _ref4.apply(this, arguments);
+    };
+  }();
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", null, /*#__PURE__*/_react.default.createElement("u", null, page.title)), /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("b", null, "Author: "), " ", author.name), /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("b", null, "Published: "), date), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("p", null, /*#__PURE__*/_react.default.createElement("u", null, "Content")), /*#__PURE__*/_react.default.createElement("div", {
+    id: "content"
+  }, showContent()), /*#__PURE__*/_react.default.createElement("p", {
+    className: "BnU"
+  }, "Tags"), tags.map(function (i) {
     return i.map(function (j) {
-      return /*#__PURE__*/_react.default.createElement("p", null, "#", j.name);
+      return /*#__PURE__*/_react.default.createElement("p", {
+        style: {
+          color: 'blue'
+        }
+      }, "#", j.name);
     });
   }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
-    onMouseOver: function onMouseOver(e) {
-      return changeBackground(e, 'grey');
-    },
-    onMouseLeave: function onMouseLeave(e) {
-      return changeBackground(e, '');
-    },
+    className: "button",
     onClick: function onClick() {
       return clickHandler();
     }
-  }, "Return To Home Page"));
+  }, "Return Home Page"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "button",
+    onClick: function onClick() {
+      return deleteHandler();
+    }
+  }, "Delete Page"));
 };
 
 exports.Page = Page;
@@ -30574,14 +30831,20 @@ var AddPage = function AddPage(_ref) {
 
   function _submitHandler() {
     _submitHandler = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-      var response, data;
+      var res, data;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               e.preventDefault();
-              _context.prev = 1;
-              _context.next = 4;
+
+              if (!(Object.values(formInputs).length == 6)) {
+                _context.next = 19;
+                break;
+              }
+
+              _context.prev = 2;
+              _context.next = 5;
               return fetch("".concat(_api.default, "/wiki"), {
                 method: 'POST',
                 headers: {
@@ -30591,30 +30854,37 @@ var AddPage = function AddPage(_ref) {
                 body: JSON.stringify(formInputs)
               });
 
-            case 4:
-              response = _context.sent;
-              _context.next = 7;
-              return response.json();
+            case 5:
+              res = _context.sent;
+              _context.next = 8;
+              return res.json();
 
-            case 7:
+            case 8:
               data = _context.sent;
-              console.log(data);
+              console.log(formInputs);
               setFormInputs({});
               e.target.reset();
-              _context.next = 16;
+              _context.next = 17;
               break;
 
-            case 13:
-              _context.prev = 13;
-              _context.t0 = _context["catch"](1);
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](2);
               console.log(_context.t0);
 
-            case 16:
+            case 17:
+              _context.next = 20;
+              break;
+
+            case 19:
+              alert('All fields must be filled');
+
+            case 20:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 13]]);
+      }, _callee, null, [[2, 14]]);
     }));
     return _submitHandler.apply(this, arguments);
   }
@@ -30632,28 +30902,134 @@ var AddPage = function AddPage(_ref) {
   }
 
   var arr = ['title', 'slug', 'content', 'name', 'email', 'tags'];
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("form", {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("form", {
     id: "newPage",
     onSubmit: submitHandler
   }, arr.map(function (i) {
-    return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("label", {
-      htmlFor: i
-    }, i, ": "), /*#__PURE__*/_react.default.createElement("input", {
+    return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
+      className: "input",
       name: i,
       value: formInputs[i],
-      onChange: onChangeHandler
+      onChange: onChangeHandler,
+      placeholder: i
     }));
-  }), /*#__PURE__*/_react.default.createElement("button", {
+  }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
+    className: "button",
     form: "newPage"
-  }, "Submit"), /*#__PURE__*/_react.default.createElement("button", {
+  }, "Create Page"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "button",
     type: "button",
     onClick: function onClick() {
       return runner();
     }
-  }, "Back")));
+  }, "Return Home Page")));
 };
 
 exports.AddPage = AddPage;
+},{"react":"../node_modules/react/index.js","../api":"react/api.js"}],"react/components/Authors.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Authors = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _api = _interopRequireDefault(require("../api"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function (nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
+
+function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator.return && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, catch: function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Authors = function Authors(_ref) {
+  var setCurrentViewPoint = _ref.setCurrentViewPoint;
+
+  var _useState = (0, _react.useState)(''),
+      _useState2 = _slicedToArray(_useState, 2),
+      tag = _useState2[0],
+      setTag = _useState2[1];
+
+  var _useState3 = (0, _react.useState)([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      found = _useState4[0],
+      setFound = _useState4[1];
+
+  var clickHandler = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+      var res;
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return fetch("".concat(_api.default, "/wiki/search?search=").concat(tag));
+
+            case 2:
+              res = _context.sent;
+
+            case 3:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function clickHandler(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  var onChangeHandler = function onChangeHandler(e) {
+    setTag(e.target.value);
+    console.log(tag);
+  };
+
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("form", {
+    id: "searchTag",
+    onSubmit: clickHandler
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    id: "searchBar",
+    name: "searchBar",
+    value: formInputs[i],
+    onChange: onChangeHandler,
+    placeholder: i
+  }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
+    className: "button",
+    form: "searchTag"
+  }, "Search"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "button",
+    type: "button",
+    onClick: function onClick() {
+      return setCurrentViewPoint('PageList');
+    }
+  }, "Return Home Page")));
+};
+
+exports.Authors = Authors;
 },{"react":"../node_modules/react/index.js","../api":"react/api.js"}],"react/components/App.js":[function(require,module,exports) {
 "use strict";
 
@@ -30669,6 +31045,8 @@ var _PagesList = require("./PagesList");
 var _Page = require("./Page");
 
 var _AddPage = require("./AddPage");
+
+var _Authors = require("./Authors");
 
 var _api = _interopRequireDefault(require("../api"));
 
@@ -30715,26 +31093,23 @@ var App = function App() {
       currentViewPoint = _useState6[0],
       setCurrentViewPoint = _useState6[1];
 
-  var changeBackground = function changeBackground(e, color) {
-    e.target.style.background = color;
-  };
-
   var viewPoints = {
     PageList: /*#__PURE__*/_react.default.createElement(_PagesList.PagesList, {
       setPageView: setPageView,
       setCurrentViewPoint: setCurrentViewPoint,
-      changeBackground: changeBackground,
-      pages: pagesCollection
+      pages: pagesCollection,
+      setPagesCollection: setPagesCollection,
+      fetchPages: fetchPages
     }),
     AddPage: /*#__PURE__*/_react.default.createElement(_AddPage.AddPage, {
       setCurrentViewPoint: setCurrentViewPoint
     }),
     Page: /*#__PURE__*/_react.default.createElement(_Page.Page, {
       page: pageView,
-      changeBackground: changeBackground,
       setCurrentViewPoint: setCurrentViewPoint,
       setPageView: setPageView
-    })
+    }) //Authors : <Authors setCurrentViewPoint= {setCurrentViewPoint}/>
+
   };
 
   function fetchPages() {
@@ -30759,6 +31134,7 @@ var App = function App() {
 
             case 6:
               pagesData = _context.sent;
+              //console.log(pagesData)
               setPagesCollection(pagesData);
               _context.next = 13;
               break;
@@ -30781,11 +31157,11 @@ var App = function App() {
   (0, _react.useEffect)(function () {
     fetchPages();
   }, []);
-  return /*#__PURE__*/_react.default.createElement("main", null, /*#__PURE__*/_react.default.createElement("h1", null, "WikiVerse"), viewPoints[currentViewPoint]);
+  return /*#__PURE__*/_react.default.createElement("main", null, /*#__PURE__*/_react.default.createElement("h1", null, /*#__PURE__*/_react.default.createElement("u", null, "WikiVerse")), viewPoints[currentViewPoint]);
 };
 
 exports.App = App;
-},{"react":"../node_modules/react/index.js","./PagesList":"react/components/PagesList.js","./Page":"react/components/Page.js","./AddPage":"react/components/AddPage.js","../api":"react/api.js"}],"react/index.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","./PagesList":"react/components/PagesList.js","./Page":"react/components/Page.js","./AddPage":"react/components/AddPage.js","./Authors":"react/components/Authors.js","../api":"react/api.js"}],"react/index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -30827,7 +31203,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64167" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56883" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

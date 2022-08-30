@@ -8,26 +8,29 @@ export const AddPage = ({setCurrentViewPoint}) => {
 
     async function submitHandler (e) {
         e.preventDefault()
-        try {
-            const response = await fetch(`${apiURL}/wiki`, {
-                method: 'POST',
-                headers: {
-                    "Content-Type" : "application/json",
-                    "accept" : "application/json",
-                    },
-                body: JSON.stringify(formInputs)
+        if(Object.values(formInputs).length == 6) {
+            try {
+                const res = await fetch(`${apiURL}/wiki`, {
+                    method: 'POST',
+                    headers: {
+                        "Content-Type" : "application/json",
+                        "accept" : "application/json",
+                        },
+                    body: JSON.stringify(formInputs)
+                    
+                })
+                const data = await res.json()
+                console.log(formInputs)
                 
-            })
-            const data = await response.json()
-            console.log(data)
+                setFormInputs({})
+                e.target.reset()
             
-            setFormInputs({})
-            e.target.reset()
-        
-        } 
-        catch (err) {
-            console.log(err)
+            } 
+            catch (err) {
+                console.log(err)
+            }
         }
+        else {alert('All fields must be filled')}
     }
     
     function onChangeHandler (e) {
@@ -45,15 +48,14 @@ export const AddPage = ({setCurrentViewPoint}) => {
     const arr = ['title', 'slug', 'content', 'name', 'email', 'tags']
 
     return <div>
+        <br/>
         <form id="newPage" onSubmit={submitHandler}>
             {arr.map(i => {return <div>
-                <label htmlFor={i} >{i}: </label>
-                <input name={i} value={formInputs[i]} onChange={onChangeHandler}></input>
+                <input className='input' name={i} value={formInputs[i]} onChange={onChangeHandler} placeholder={i}></input>
              </div>})}
-
-            <button form="newPage">Submit</button>
-            <button type="button" onClick={()=> runner()}>Back</button>
-
+            <br/>
+            <button className='button' form="newPage">Create Page</button>
+            <button className='button' type="button" onClick={()=> runner()}>Return Home Page</button>
         </form>
     </div>
 }

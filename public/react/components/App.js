@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { PagesList } from './PagesList';
 import { Page } from './Page';
 import { AddPage } from './AddPage';
+import { Authors } from './Authors';
+
 
 // import and prepend the api url to any fetch calls
 import apiURL from '../api';
@@ -13,22 +15,22 @@ export const App = () => {
 	const [pageView, setPageView] = useState({});
 	const [currentViewPoint, setCurrentViewPoint] = useState('PageList')
 
-	const changeBackground = (e, color) => {
-		e.target.style.background =  color;
-	  }
-
 	const viewPoints = {
-		PageList: <PagesList setPageView = {setPageView} setCurrentViewPoint = {setCurrentViewPoint} changeBackground={changeBackground} pages={pagesCollection} />,
+		PageList: <PagesList setPageView = {setPageView} setCurrentViewPoint = {setCurrentViewPoint} pages={pagesCollection} setPagesCollection={setPagesCollection} fetchPages={fetchPages}/>,
 		
 		AddPage: <AddPage setCurrentViewPoint = {setCurrentViewPoint} />,
 		
-		Page: <Page page={pageView} changeBackground={changeBackground} setCurrentViewPoint = {setCurrentViewPoint} setPageView={setPageView}/>
+		Page: <Page page={pageView} setCurrentViewPoint = {setCurrentViewPoint} setPageView={setPageView}/>,
+
+		//Authors : <Authors setCurrentViewPoint= {setCurrentViewPoint}/>
 	}
 
 	async function fetchPages(){
+
 		try {
 			const res = await fetch(`${apiURL}/wiki`);
 			const pagesData = await res.json();
+			//console.log(pagesData)
 			setPagesCollection(pagesData);
 		} 
 		catch (err) {
@@ -42,7 +44,7 @@ export const App = () => {
 
 	return (
 		<main>	
-      <h1>WikiVerse</h1>
+      <h1><u>WikiVerse</u></h1>
 	  {
 		viewPoints[currentViewPoint]
 	  }
