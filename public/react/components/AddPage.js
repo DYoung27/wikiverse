@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import apiURL from '../api';
 
-
 export const AddPage = ({setCurrentViewPoint}) => {
 
     const [formInputs, setFormInputs] = useState({})
@@ -48,7 +47,7 @@ export const AddPage = ({setCurrentViewPoint}) => {
     const arr = ['title', 'slug', 'content', 'name', 'email', 'tags']
 
     return <div>
-        <br/>
+        <br/><h2 className="pageHeads"><u>Create New Page:</u></h2>
         <form id="newPage" onSubmit={submitHandler}>
             {arr.map(i => {return <div>
                 <input className='input' name={i} value={formInputs[i]} onChange={onChangeHandler} placeholder={i}></input>

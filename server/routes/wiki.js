@@ -48,6 +48,22 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+// POST /wiki/author
+router.post("/author", async (req, res, next) => {
+  try {
+    const user = await User.create(
+      {  
+        name: req.body.name,
+        email: req.body.email
+      }
+    )
+    res.send(user)
+  } 
+  catch (error) {
+    next(error);
+  }
+});
+
 // GET /wiki/search
 router.get("/search", async (req, res, next) => {
   try {

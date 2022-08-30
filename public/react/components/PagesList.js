@@ -48,16 +48,14 @@ export const PagesList = ({pages, setCurrentViewPoint, setPageView, setPagesColl
 			errorText('', '')
 		}
 	}
-	
 
 	return <>
-		
 		<br/>
-		<h2 className='pageHeads'><b>Functions</b></h2>
+		<h2 className='pageHeads'><b>Functions:</b></h2>
 		<h3 className='pages' onClick={() => setCurrentViewPoint('AddPage')} >Add a page</h3>
-		<h3 className='pages' onClick={() => setCurrentViewPoint('SearchPage')} >Search a page</h3>
+		<h3 className='pages' onClick={() => setCurrentViewPoint('AuthorsPage')} >Create a Author</h3>
 		<br/>
-		<h2 className='pageHeads'><b>Pages</b></h2>
+		<h2 className='pageHeads'><b>Pages:</b></h2>
 		{
 			pages.map((page, idx) => {
 				return <> 

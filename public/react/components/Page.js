@@ -105,8 +105,8 @@ export const Page = ({setCurrentViewPoint, setPageView, page}) => {
       </div>
       <p className='BnU'>Tags</p>
       {tags.map(i => i.map(j => <p style={{color:'blue'}}>#{j.name}</p>))}<br/>
-      <button className='button' onClick={() => clickHandler()}>Return Home Page</button>
       <button className='button' onClick={() => deleteHandler()}>Delete Page</button>
+      <button className='button' onClick={() => clickHandler()}>Return Home Page</button>
   </>
 } 
 	

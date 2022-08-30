@@ -30472,7 +30472,7 @@ var PagesList = function PagesList(_ref) {
 
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", {
     className: "pageHeads"
-  }, /*#__PURE__*/_react.default.createElement("b", null, "Functions")), /*#__PURE__*/_react.default.createElement("h3", {
+  }, /*#__PURE__*/_react.default.createElement("b", null, "Functions:")), /*#__PURE__*/_react.default.createElement("h3", {
     className: "pages",
     onClick: function onClick() {
       return setCurrentViewPoint('AddPage');
@@ -30480,11 +30480,11 @@ var PagesList = function PagesList(_ref) {
   }, "Add a page"), /*#__PURE__*/_react.default.createElement("h3", {
     className: "pages",
     onClick: function onClick() {
-      return setCurrentViewPoint('SearchPage');
+      return setCurrentViewPoint('AuthorsPage');
     }
-  }, "Search a page"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", {
+  }, "Create a Author"), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", {
     className: "pageHeads"
-  }, /*#__PURE__*/_react.default.createElement("b", null, "Pages")), pages.map(function (page, idx) {
+  }, /*#__PURE__*/_react.default.createElement("b", null, "Pages:")), pages.map(function (page, idx) {
     return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("h3", {
       className: "pages",
       key: idx,
@@ -30795,14 +30795,14 @@ var Page = function Page(_ref) {
   }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
     className: "button",
     onClick: function onClick() {
-      return clickHandler();
-    }
-  }, "Return Home Page"), /*#__PURE__*/_react.default.createElement("button", {
-    className: "button",
-    onClick: function onClick() {
       return deleteHandler();
     }
-  }, "Delete Page"));
+  }, "Delete Page"), /*#__PURE__*/_react.default.createElement("button", {
+    className: "button",
+    onClick: function onClick() {
+      return clickHandler();
+    }
+  }, "Return Home Page"));
 };
 
 exports.Page = Page;
@@ -30929,7 +30929,9 @@ var AddPage = function AddPage(_ref) {
   }
 
   var arr = ['title', 'slug', 'content', 'name', 'email', 'tags'];
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("form", {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", {
+    className: "pageHeads"
+  }, /*#__PURE__*/_react.default.createElement("u", null, "Create New Page:")), /*#__PURE__*/_react.default.createElement("form", {
     id: "newPage",
     onSubmit: submitHandler
   }, arr.map(function (i) {
@@ -30994,64 +30996,109 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var Authors = function Authors(_ref) {
   var setCurrentViewPoint = _ref.setCurrentViewPoint;
 
-  var _useState = (0, _react.useState)(''),
+  var _useState = (0, _react.useState)({}),
       _useState2 = _slicedToArray(_useState, 2),
-      tag = _useState2[0],
-      setTag = _useState2[1];
+      authorInputs = _useState2[0],
+      setAuthorInputs = _useState2[1];
 
-  var _useState3 = (0, _react.useState)([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      found = _useState4[0],
-      setFound = _useState4[1];
+  function submitHandler(_x) {
+    return _submitHandler.apply(this, arguments);
+  }
 
-  var clickHandler = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
-      var res;
+  function _submitHandler() {
+    _submitHandler = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+      var res, data;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return fetch("".concat(_api.default, "/wiki/search?search=").concat(tag));
+              e.preventDefault();
 
-            case 2:
+              if (!(Object.values(authorInputs).length == 2)) {
+                _context.next = 19;
+                break;
+              }
+
+              _context.prev = 2;
+              _context.next = 5;
+              return fetch("".concat(_api.default, "/wiki/author"), {
+                method: 'POST',
+                headers: {
+                  "Content-Type": "application/json",
+                  "accept": "application/json"
+                },
+                body: JSON.stringify(authorInputs)
+              });
+
+            case 5:
               res = _context.sent;
+              _context.next = 8;
+              return res.json();
 
-            case 3:
+            case 8:
+              data = _context.sent;
+              console.log(authorInputs);
+              setAuthorInputs({});
+              e.target.reset();
+              _context.next = 17;
+              break;
+
+            case 14:
+              _context.prev = 14;
+              _context.t0 = _context["catch"](2);
+              console.log(_context.t0);
+
+            case 17:
+              _context.next = 20;
+              break;
+
+            case 19:
+              alert('All fields must be filled');
+
+            case 20:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee);
+      }, _callee, null, [[2, 14]]);
     }));
+    return _submitHandler.apply(this, arguments);
+  }
 
-    return function clickHandler(_x) {
-      return _ref2.apply(this, arguments);
-    };
-  }();
+  function onChangeHandler(e) {
+    var formData = authorInputs;
+    formData[e.target.name] = e.target.value;
+    setAuthorInputs(formData);
+    console.log(authorInputs);
+  }
 
-  var onChangeHandler = function onChangeHandler(e) {
-    setTag(e.target.value);
-    console.log(tag);
-  };
+  function runner() {
+    location.reload();
+    setCurrentViewPoint('PageList');
+  }
 
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("form", {
-    id: "searchTag",
-    onSubmit: clickHandler
-  }, /*#__PURE__*/_react.default.createElement("input", {
-    id: "searchBar",
-    name: "searchBar",
-    value: formInputs[i],
-    onChange: onChangeHandler,
-    placeholder: i
+  var arr = ['name', 'email'];
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("h2", {
+    className: "pageHeads"
+  }, /*#__PURE__*/_react.default.createElement("u", null, "Create New Author:")), /*#__PURE__*/_react.default.createElement("form", {
+    id: "newPage",
+    classNamwonSubmit: submitHandler
+  }, arr.map(function (i) {
+    return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("input", {
+      className: "input",
+      name: i,
+      value: authorInputs[i],
+      onChange: onChangeHandler,
+      placeholder: i
+    }));
   }), /*#__PURE__*/_react.default.createElement("br", null), /*#__PURE__*/_react.default.createElement("button", {
     className: "button",
-    form: "searchTag"
-  }, "Search"), /*#__PURE__*/_react.default.createElement("button", {
+    form: "newPage"
+  }, "Create Author"), /*#__PURE__*/_react.default.createElement("button", {
     className: "button",
     type: "button",
     onClick: function onClick() {
-      return setCurrentViewPoint('PageList');
+      return runner();
     }
   }, "Return Home Page")));
 };
@@ -31135,8 +31182,10 @@ var App = function App() {
       page: pageView,
       setCurrentViewPoint: setCurrentViewPoint,
       setPageView: setPageView
-    }) //Authors : <Authors setCurrentViewPoint= {setCurrentViewPoint}/>
-
+    }),
+    AuthorsPage: /*#__PURE__*/_react.default.createElement(_Authors.Authors, {
+      setCurrentViewPoint: setCurrentViewPoint
+    })
   };
 
   function fetchPages() {

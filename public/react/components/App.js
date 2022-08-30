@@ -22,7 +22,7 @@ export const App = () => {
 		
 		Page: <Page page={pageView} setCurrentViewPoint = {setCurrentViewPoint} setPageView={setPageView}/>,
 
-		//Authors : <Authors setCurrentViewPoint= {setCurrentViewPoint}/>
+		AuthorsPage : <Authors setCurrentViewPoint= {setCurrentViewPoint}/>
 	}
 
 	async function fetchPages(){
